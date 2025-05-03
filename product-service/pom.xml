@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- 使用 Spring Boot 3.4.5 -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.0</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>com.example</groupId>
+	<artifactId>product-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>product-service</name>
+	<description>product-service</description>
+
+	<properties>
+		<java.version>17</java.version>
+		<!-- 使用与 Spring Boot 3.4.5 兼容的 Spring Cloud 版本 -->
+		<spring-cloud.version>2023.0.2</spring-cloud.version>
+	</properties>
+
+	<dependencies>
+		<!-- Web 支持 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Eureka 客户端（注意：Spring Cloud 2023.x 对应 Netflix 4.1.x） -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<!-- 测试依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- Spring Cloud 依赖管理 -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!-- 解决 JDK 17+ 的警告问题 -->
+				<configuration>
+					<jvmArguments>
+						--add-opens java.base/java.lang=ALL-UNNAMED
+						--add-opens java.base/java.util=ALL-UNNAMED
+					</jvmArguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
